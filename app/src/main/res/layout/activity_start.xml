@@ -10,44 +10,53 @@
     app:layout_constraintTop_toTopOf="parent">
 
 
-    <Button
-        android:id="@+id/datePickerButton"
-        style="?android:spinnerStyle"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:onClick="openDatePicker"
-        android:clickable="true"
-        android:text="JAN 01 2020"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/txtWelcomeMsg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="268dp"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="405dp"
         android:text="Welcome Hacker."
         android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/timePicker"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="UnknownId" />
+
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/txtSelectDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="164dp"
-        android:layout_marginTop="324dp"
+        android:layout_marginStart="168dp"
+        android:layout_marginTop="52dp"
         android:text="Select Date"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <DatePicker
+        android:id="@+id/datePicker"
+        android:layout_width="357dp"
+        android:layout_height="377dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="80dp"
+        android:datePickerMode="spinner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TimePicker
+        android:id="@+id/simpleTimePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:padding="20dp"
+        android:timePickerMode="spinner"
+        tools:layout_editor_absoluteX="57dp"
+        tools:layout_editor_absoluteY="443dp" />
+
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnNextPg"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
