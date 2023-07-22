@@ -50,10 +50,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_marginStart="21dp"
+        android:layout_marginBottom="19dp"
         android:padding="20dp"
         android:timePickerMode="spinner"
-        tools:layout_editor_absoluteX="57dp"
-        tools:layout_editor_absoluteY="443dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/btnNextPg"
+        app:layout_constraintStart_toStartOf="@+id/datePicker" />
 
     <Button
         android:id="@+id/btnNextPg"
