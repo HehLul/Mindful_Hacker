@@ -21,29 +21,43 @@ public class MainActivity extends Activity implements  View.OnClickListener{
     TextView txtMainCountDown;
     Button btnEdit;//create button variable
 
+    long day, month, year;//bundle passing from startPage
+    long hour, minute;
+
 
     //---------ONCREATE---------------------------------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent intent = getIntent();
+
 
         init();
         editTimer();
         startTimer();
 
-       // countdown();
     }
 
 
 //---------INIT------------------------------------------------------------------------
 
     private void init() {
+
         txtMainCountDown = findViewById(R.id.MainCountDown);
         btnEdit = findViewById(R.id.btnEdit);//instantiate button, provide id
+
+        //vars from startPage
+        Intent intent = getIntent();
+        day = intent.getLongExtra("key_day", 0);
+        month = intent.getLongExtra("key_month", 0);
+        year = intent.getLongExtra("key_year", 0);
+        hour = intent.getLongExtra("key_hour", 0);
+        minute = intent.getLongExtra("key_minute", 0);
+
+        btnEdit.setText(""+minute);
+
     }
-//---------------------------------------------------------------------------------
+//-------COUNTDOWN TIMER METHODS--------------------------------------------------------------------------
     private void editTimer() {//switch page to start page to edit countdown start
         btnEdit.setOnClickListener(new View.OnClickListener() {//setOnClickListener
             @Override
@@ -86,8 +100,7 @@ public class MainActivity extends Activity implements  View.OnClickListener{
 
 //-----NOT USING-----------------------------------------------------------------------------
     @Override
-    public void onClick(View v) {//method for OnClickListener to work
-    }
+    public void onClick(View v) {}
 }
 
 
