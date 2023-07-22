@@ -9,11 +9,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements  View.OnClickListener{
 
     TextView txtMainCountDown;
-    Button btnEdit;
+    Button btnEdit;//create button variable
     Context context;
+    //---------ONCREATE---------------------------------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,26 +25,36 @@ public class MainActivity extends Activity {
 
        // countdown();
        // edit();
-
     }
 
     private void init() {
         txtMainCountDown = findViewById(R.id.MainCountDown);
-        btnEdit = findViewById(R.id.btnEdit);
+        btnEdit = findViewById(R.id.btnEdit);//instantiate button, provide id
+        btnEdit.setOnClickListener(new View.OnClickListener() {//setOnClickListener
+            @Override
+            public void onClick(View v) {
+                Log.d("MainActivity", "In if state");
+                Intent i = new Intent(getApplicationContext(), StartPage.class);
+                startActivity(i);
+            }
+        });
 
-        context = this;
-        button editButton = new button(btnEdit, context);
+    }
 
-        if(editButton.getClicked() == true){
-            Log.d("MainActivity", "In if state");
-            Intent i = new Intent(this, StartPage.class);
-            startActivity(i);
-        }
-
+    @Override
+    public void onClick(View v) {//method for OnClickListener to work
     }
 }
 
 
+
+
+
+
+
+
+
+/*
 class button extends MainActivity implements  View.OnClickListener {
     Button btn;
     Context context;
@@ -58,11 +69,7 @@ class button extends MainActivity implements  View.OnClickListener {
             public void onClick(View v) {
                 //btn.setText("HELLLOOOOO");
                 //Log.d("MainActivity", "This is a debug message");
-                if(v.getId()==(R.id.btnEdit)){
-                    clicked = true;
-                }
-
-
+                clicked = true;
             }
 
         });
@@ -81,4 +88,4 @@ class button extends MainActivity implements  View.OnClickListener {
     public void onClick(View v) {
         clicked = true;
     }
-}
+}*/
