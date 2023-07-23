@@ -11,48 +11,38 @@
 
 
     <TextView
-        android:id="@+id/txtWelcomeMsg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="124dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="405dp"
-        android:text="Welcome Hacker."
-        android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/timePicker"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="UnknownId" />
-
-
-    <TextView
         android:id="@+id/txtSelectDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="168dp"
-        android:layout_marginTop="52dp"
-        android:text="Select Date"
+
+        android:layout_marginTop="28dp"
+        android:text="Select Submission Date and Time"
+
+        android:textSize="15sp"
+        app:layout_constraintCircleRadius="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <DatePicker
         android:id="@+id/datePicker"
-        android:layout_width="357dp"
-        android:layout_height="377dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="80dp"
-        android:datePickerMode="spinner"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="220dp"
+        android:datePickerMode="calendar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TimePicker
-        android:id="@+id/simpleTimePicker"
+        android:id="@+id/timePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="21dp"
-        android:layout_marginBottom="19dp"
-        android:padding="20dp"
+        android:layout_marginStart="96dp"
+        android:layout_marginBottom="44dp"
         android:timePickerMode="spinner"
         app:layout_constraintBottom_toBottomOf="@+id/btnNextPg"
         app:layout_constraintStart_toStartOf="@+id/datePicker" />
