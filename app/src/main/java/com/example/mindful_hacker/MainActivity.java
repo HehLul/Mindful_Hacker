@@ -41,7 +41,9 @@ public class MainActivity extends Activity implements  View.OnClickListener{
     PomodoroTimer pomodoroTimer;
     PomodoroTimer breakTimer;
 
-    /*//POMODORO VARS
+
+
+    //POMODORO VARS
 
     TextView txtPomodoro;
     Button btnStartPause, btnReset;
@@ -53,7 +55,7 @@ public class MainActivity extends Activity implements  View.OnClickListener{
 
 
     long pomodoroDuration;
-    long breakDuration;*/
+    long breakDuration;
 
 
 
@@ -67,12 +69,15 @@ public class MainActivity extends Activity implements  View.OnClickListener{
         init();
         editTimer();
         startTimer();
-        if(pomodoroTimer.getTimerRunning()){
+        checkPomoButtons();
+
+
+       /* if(pomodoroTimer.getTimerRunning()){
             pomodoroTimer.checkPomoButtons();
         }
         else{
             breakTimer.checkPomoButtons();
-        }
+        }*/
 
 
     }
@@ -104,10 +109,27 @@ public class MainActivity extends Activity implements  View.OnClickListener{
         //btnEdit.setText(""+day);
 
         //instantiate pomodorotimer objects
-        pomodoroTimer = new PomodoroTimer(1500000);
-        breakTimer = new PomodoroTimer(300000);
-        pomodoroTimer.setTimerRunning(true);
-        breakTimer.setTimerRunning(false);
+        pomoRunning = false;
+        btnStartPause = findViewById(R.id.btnStartPause);
+        btnReset = findViewById(R.id.btnReset);
+        txtPomodoro = findViewById(R.id.txtPomodoro);
+        /*pomoCountDownTimer = new CountDownTimer() {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        }*/
+       // pomodoroTimer = new PomodoroTimer(1500000, btnStartPause, btnReset,  txtPomodoro);
+       // breakTimer = new PomodoroTimer(300000 , btnStartPause, btnReset,  txtPomodoro);
+       // pomodoroTimer.setTimerRunning(true);
+        //breakTimer.setTimerRunning(false);
+
+
 
     }
 //-------COUNTDOWN TIMER METHODS--------------------------------------------------------------------------
@@ -156,7 +178,7 @@ public class MainActivity extends Activity implements  View.OnClickListener{
     }
 
 //-----POMODORO-----------------------------------------------------------------------------------
-/*
+
     public void checkPomoButtons(){
         btnStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,7 +244,7 @@ public class MainActivity extends Activity implements  View.OnClickListener{
         String pomoTimeLeftFormatted = String.format(Locale.getDefault(),"%02d:%02d", pomoMins, pomoSecs);
 
         txtPomodoro.setText(pomoTimeLeftFormatted);
-    }*/
+    }
 
 
 //-----NOT USING-----------------------------------------------------------------------------
@@ -255,6 +277,7 @@ public class MainActivity extends Activity implements  View.OnClickListener{
 
 class PomodoroTimer extends MainActivity implements View.OnClickListener {
     static long startTimeInMillis;
+    Boolean timerRunning;
     public void setTimerRunning(boolean timerRunning){
         this.timerRunning = timerRunning;
     }
@@ -262,15 +285,27 @@ class PomodoroTimer extends MainActivity implements View.OnClickListener {
         return timerRunning;
     }
 
-    //POMODORO VARS
+    public void init(){
+        //POMODORO VARS
+        TextView txtPomodoro;
+        Button btnStartPause, btnReset;
+        CountDownTimer pomoCountDownTimer;
+        Boolean timerRunning;
+        long pomoTimeLeftMillis = startTimeInMillis;
+    }
+
+   /* //POMODORO VARS
     TextView txtPomodoro;
     Button btnStartPause, btnReset;
     CountDownTimer pomoCountDownTimer;
     Boolean timerRunning;
-    long pomoTimeLeftMillis = startTimeInMillis;
+    long pomoTimeLeftMillis = startTimeInMillis;*/
 //------CONSTRUCTOR-----------------------------------------------------------------------------
-    public PomodoroTimer(long startTimeInMillis){
+    public PomodoroTimer(long startTimeInMillis, Button btnStartPause, Button btnReset, TextView txtPomodoro){
         this.startTimeInMillis = startTimeInMillis;
+        this.btnReset = btnReset;
+        this.btnStartPause = btnStartPause;
+        this.txtPomodoro = txtPomodoro;
        // btnStartPause = findViewById(R.id.btnStartPause);
        // btnReset = findViewById(R.id.btnReset);
     }
@@ -278,8 +313,8 @@ class PomodoroTimer extends MainActivity implements View.OnClickListener {
     //-----POMODORO-----------------------------------------------------------------------------------
 
     public void checkPomoButtons(){
-        Button btnStartPause = findViewById(R.id.btnStartPause);
-        Button btnReset = findViewById(R.id.btnReset);
+     //   Button btnStartPause = findViewById(R.id.btnStartPause);
+     //   Button btnReset = findViewById(R.id.btnReset);
         btnStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
