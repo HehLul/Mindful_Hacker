@@ -100,6 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CLICK FOR RANDOM ACTIVITY"
+            android:fontFamily="monospace"
             android:textSize="20sp"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/btnStartPause"
