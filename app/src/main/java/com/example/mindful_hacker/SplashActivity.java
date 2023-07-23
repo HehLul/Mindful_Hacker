@@ -2,6 +2,7 @@ package com.example.mindful_hacker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,7 +10,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends Activity {
     //FIELDS
     private TextView txtSplash;
 
@@ -24,7 +25,7 @@ public class SplashActivity extends AppCompatActivity {
         Animation scale = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.scale);
 
         txtSplash.startAnimation(alpha);//execute animation
-        txtSplash.startAnimation(scale);//execute animation
+        //txtSplash.startAnimation(scale);//execute animation
 
 
         new Handler().postDelayed(new Runnable() {

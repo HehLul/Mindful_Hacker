@@ -3,6 +3,6 @@
     <!--    fade in and out -->
     <alpha android:fromAlpha="0"
         android:toAlpha="1"
-        android:duration = "4000"
+        android:duration = "5000"
         android:repeatCount = "infinite"/>
 </set>
