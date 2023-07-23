@@ -17,11 +17,9 @@
         android:textSize="20dp" />
 
 
-
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/MainCountDown"
@@ -34,17 +32,57 @@
 
         <Button
             android:id="@+id/btnEdit"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
+            android:layout_width="20dp"
+            android:layout_height="60dp"
             android:layout_marginLeft="70dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="1dp"
             android:layout_toStartOf="@+id/MainCountDown"
             android:text="EDIT" />
+
+
+        <TextView
+            android:id="@+id/txtPomodoro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+
+            android:text="00:00:00"
+            android:textAlignment="center"
+            android:textSize="60sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnReset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+
+            android:layout_below="@id/txtPomodoro"
+            android:layout_marginStart="20dp"
+            android:layout_toRightOf="@id/btnStartPause"
+
+            android:text="RESET"
+            android:textSize="20dp"
+
+            android:visibility="invisible"
+            tools:visibility="visible"
+            />
+
+
+        <Button
+            android:id="@+id/btnStartPause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@id/txtPomodoro"
+            android:layout_centerHorizontal="true"
+
+            android:text="START"
+            android:textSize="20dp" />
     </RelativeLayout>
-
-
-
 
 
 </LinearLayout>

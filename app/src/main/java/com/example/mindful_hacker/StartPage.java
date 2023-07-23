@@ -21,14 +21,14 @@ import java.util.Date;
 public class StartPage extends Activity implements View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePicker.OnTimeChangedListener {
     //VARIABLES
     DatePicker datePicker;
-    TimePicker timePicker;
+    public TimePicker timePicker;
+    Calendar now = Calendar.getInstance();
     Button btnNextPg;
-    long day, month, year;
-    long hour, minute;
+    int day, month, year;
+    int hour, minute;
 
     int timeNow;
 
-    boolean intentChangedFromMain;
 
 
     //---------ONCREATE---------------------------------------------------------------------------------------------
@@ -37,6 +37,7 @@ public class StartPage extends Activity implements View.OnClickListener, DatePic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
         init();
+
         nextPage();
         reset();
     }
@@ -44,6 +45,10 @@ public class StartPage extends Activity implements View.OnClickListener, DatePic
     //-----INITIALIZE--------------------------------------------------------------------------------------------------
 
     private void init(){
+        datePicker = (DatePicker) findViewById(R.id.datePicker);
+        timePicker = (TimePicker) findViewById(R.id.timePicker);
+        //TimePicker timePicker = new TimePicker(getApplicationContext());
+
         btnNextPg = (Button) findViewById(R.id.btnNextPg);
         btnNextPg.setOnClickListener(this);
     }
@@ -51,24 +56,23 @@ public class StartPage extends Activity implements View.OnClickListener, DatePic
 
     private void nextPage(){
 
-        initCalenderAndTimer();
-
-        timePicker = (TimePicker) findViewById(R.id.timePicker);
-
-        TimePicker timePicker = new TimePicker(this);
-        //timePicker.setOnTimeChangedListener(this);
-        timePicker.setIs24HourView(true);
 
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
+
+
         btnNextPg.setOnClickListener(new View.OnClickListener() {
-            @Override
+
+
             public void onClick(View v) {
 
+                timePicker = new TimePicker(getApplicationContext());
                 day = datePicker.getDayOfMonth();
-                month = datePicker.getMonth() +1;
+                month = datePicker.getMonth() ;
                 year = datePicker.getYear();
                 minute = timePicker.getMinute();
                 hour = timePicker.getHour();
+
+
 
                 i.putExtra("key_day", day);
                 i.putExtra("key_month", month);
@@ -78,23 +82,18 @@ public class StartPage extends Activity implements View.OnClickListener, DatePic
 
 
                 startActivity(i);
+
+
             }
         });
+
+
+
     }
 
-    private void initCalenderAndTimer(){
-        datePicker = (DatePicker) findViewById(R.id.datePicker);
-       /* timePicker = (TimePicker) findViewById(R.id.timePicker);
-
-        TimePicker timePicker = new TimePicker(this);
-        timePicker.setOnTimeChangedListener(this);
-        timePicker.setIs24HourView(true);*/
-    }
 //--------RESET VARS WHEN INTENT CHANGE FROM MAIN-----------------------------------------------------------------------------------------------
 
     private void reset(){
-
-
     }
 
 //---------NOT USED---------------------------------------------------------------------------------
