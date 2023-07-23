@@ -37,7 +37,11 @@ public class MainActivity extends Activity implements  View.OnClickListener{
     long submissionDateInMillis;
 
 
-    //POMODORO VARS
+    //instantiate pomodoroTimers
+    PomodoroTimer pomodoroTimer;
+    PomodoroTimer breakTimer;
+
+    /*//POMODORO VARS
 
     TextView txtPomodoro;
     Button btnStartPause, btnReset;
@@ -49,7 +53,8 @@ public class MainActivity extends Activity implements  View.OnClickListener{
 
 
     long pomodoroDuration;
-    long breakDuration;
+    long breakDuration;*/
+
 
 
     //---------ONCREATE---------------------------------------------------------------
@@ -62,8 +67,13 @@ public class MainActivity extends Activity implements  View.OnClickListener{
         init();
         editTimer();
         startTimer();
+        if(pomodoroTimer.getTimerRunning()){
+            pomodoroTimer.checkPomoButtons();
+        }
+        else{
+            breakTimer.checkPomoButtons();
+        }
 
-        checkPomoButtons();
 
     }
 
@@ -93,16 +103,11 @@ public class MainActivity extends Activity implements  View.OnClickListener{
         currTime = Calendar.getInstance().getTimeInMillis();
         //btnEdit.setText(""+day);
 
-
-        //vars for pomodoro
-        txtPomodoro = findViewById(R.id.txtPomodoro);
-        btnStartPause = findViewById(R.id.btnStartPause);
-        btnReset = findViewById(R.id.btnReset);
-        pomoRunning = false;
-
-        pomodoroDuration = 1500000; //25mins
-        breakDuration = 300000; //5mins
-
+        //instantiate pomodorotimer objects
+        pomodoroTimer = new PomodoroTimer(1500000);
+        breakTimer = new PomodoroTimer(300000);
+        pomodoroTimer.setTimerRunning(true);
+        breakTimer.setTimerRunning(false);
 
     }
 //-------COUNTDOWN TIMER METHODS--------------------------------------------------------------------------
@@ -151,7 +156,7 @@ public class MainActivity extends Activity implements  View.OnClickListener{
     }
 
 //-----POMODORO-----------------------------------------------------------------------------------
-
+/*
     public void checkPomoButtons(){
         btnStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,13 +216,13 @@ public class MainActivity extends Activity implements  View.OnClickListener{
         btnStartPause.setVisibility(View.VISIBLE);
     }
     public void updatePomoText(){
-        int pomoMins = (int) (timeLeft / 1000)/60;
-        int pomoSecs = (int) (timeLeft / 1000)%60;
+        int pomoMins = (int) (pomoTimeLeftMillis / 1000)/60;
+        int pomoSecs = (int) (pomoTimeLeftMillis / 1000)%60;
 
         String pomoTimeLeftFormatted = String.format(Locale.getDefault(),"%02d:%02d", pomoMins, pomoSecs);
 
         txtPomodoro.setText(pomoTimeLeftFormatted);
-    }
+    }*/
 
 
 //-----NOT USING-----------------------------------------------------------------------------
@@ -225,6 +230,128 @@ public class MainActivity extends Activity implements  View.OnClickListener{
     public void onClick(View v) {}
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class PomodoroTimer extends MainActivity implements View.OnClickListener {
+    static long startTimeInMillis;
+    public void setTimerRunning(boolean timerRunning){
+        this.timerRunning = timerRunning;
+    }
+    public Boolean getTimerRunning(){
+        return timerRunning;
+    }
+
+    //POMODORO VARS
+    TextView txtPomodoro;
+    Button btnStartPause, btnReset;
+    CountDownTimer pomoCountDownTimer;
+    Boolean timerRunning;
+    long pomoTimeLeftMillis = startTimeInMillis;
+//------CONSTRUCTOR-----------------------------------------------------------------------------
+    public PomodoroTimer(long startTimeInMillis){
+        this.startTimeInMillis = startTimeInMillis;
+       // btnStartPause = findViewById(R.id.btnStartPause);
+       // btnReset = findViewById(R.id.btnReset);
+    }
+
+    //-----POMODORO-----------------------------------------------------------------------------------
+
+    public void checkPomoButtons(){
+        Button btnStartPause = findViewById(R.id.btnStartPause);
+        Button btnReset = findViewById(R.id.btnReset);
+        btnStartPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(timerRunning){
+                    pausePomo();
+                } else{
+                    startPomo();
+                }
+            }
+        });
+
+        btnReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetPomo();
+            }
+        });
+
+        updatePomoText();
+
+    }
+
+
+    public void startPomo(){
+        pomoCountDownTimer = new CountDownTimer(pomoTimeLeftMillis, 1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                pomoTimeLeftMillis = millisUntilFinished;
+                updatePomoText();
+            }
+
+            @Override
+            public void onFinish() {//IMPLEMENT BREAK TIMER HERE
+                timerRunning = false;
+                btnStartPause.setText("START");
+                btnStartPause.setVisibility(View.INVISIBLE);
+                btnReset.setVisibility(View.VISIBLE);
+            }
+        }.start();
+
+        timerRunning = true;
+        btnStartPause.setText("PAUSE");
+        btnReset.setVisibility(View.INVISIBLE);
+    }
+    public void pausePomo(){
+        pomoCountDownTimer.cancel();
+        timerRunning = false;
+        btnStartPause.setText("START");
+        btnReset.setVisibility(View.VISIBLE);
+    }
+    public void resetPomo(){
+        pomoTimeLeftMillis = startTimeInMillis;
+        updatePomoText();
+        btnReset.setVisibility(View.INVISIBLE);
+        btnStartPause.setVisibility(View.VISIBLE);
+    }
+    public void updatePomoText(){
+        int pomoMins = (int) (pomoTimeLeftMillis / 1000)/60;
+        int pomoSecs = (int) (pomoTimeLeftMillis / 1000)%60;
+
+        String pomoTimeLeftFormatted = String.format(Locale.getDefault(),"%02d:%02d", pomoMins, pomoSecs);
+
+        txtPomodoro.setText(pomoTimeLeftFormatted);
+    }
+
+
+    //-----NOT USING-----------------------------------------------------------------------------
+    @Override
+    public void onClick(View v) {}
+
+}
 
 
 
