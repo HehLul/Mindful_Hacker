@@ -13,7 +13,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Timer;
@@ -38,8 +40,8 @@ public class MainActivity extends Activity implements  View.OnClickListener{
 
 
     //instantiate pomodoroTimers
-    PomodoroTimer pomodoroTimer;
-    PomodoroTimer breakTimer;
+   // PomodoroTimer pomodoroTimer;
+   // PomodoroTimer breakTimer;
 
 
 
@@ -54,8 +56,8 @@ public class MainActivity extends Activity implements  View.OnClickListener{
     int pomoHr, pomoMin, pomoSec;
 
 
-    long pomodoroDuration;
-    long breakDuration;
+    //RANDOM ACTIVITY GENERATOR VARS
+    RandomActivityGenerator randomActivityGenerator;
 
 
 
@@ -64,21 +66,13 @@ public class MainActivity extends Activity implements  View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         
         init();
         editTimer();
         startTimer();
         checkPomoButtons();
 
-
-       /* if(pomodoroTimer.getTimerRunning()){
-            pomodoroTimer.checkPomoButtons();
-        }
-        else{
-            breakTimer.checkPomoButtons();
-        }*/
-
+        randomActivityGenerator.generateRandomActivity();
 
     }
 
@@ -113,22 +107,32 @@ public class MainActivity extends Activity implements  View.OnClickListener{
         btnStartPause = findViewById(R.id.btnStartPause);
         btnReset = findViewById(R.id.btnReset);
         txtPomodoro = findViewById(R.id.txtPomodoro);
-        /*pomoCountDownTimer = new CountDownTimer() {
-            @Override
-            public void onTick(long millisUntilFinished) {
 
-            }
 
-            @Override
-            public void onFinish() {
-
-            }
-        }*/
-       // pomodoroTimer = new PomodoroTimer(1500000, btnStartPause, btnReset,  txtPomodoro);
-       // breakTimer = new PomodoroTimer(300000 , btnStartPause, btnReset,  txtPomodoro);
-       // pomodoroTimer.setTimerRunning(true);
-        //breakTimer.setTimerRunning(false);
-
+        //random activity generator init
+        ArrayList<String> randomActivitiesArray = new ArrayList<>();
+        randomActivitiesArray.add("Stretching: Do some light stretching exercises to ease tension in your muscles and improve blood circulation.");
+        randomActivitiesArray.add("Deep breathing: Practice deep breathing techniques to relax your mind and reduce stress.");
+        randomActivitiesArray.add( "Walk or stroll: Take a short walk around your workspace or outside to get some fresh air and clear your mind.");
+        randomActivitiesArray.add("Hydrate: Drink a glass of water to stay hydrated and refresh yourself.");
+        randomActivitiesArray.add("Snack: Have a healthy snack to refuel your energy levels.");
+        randomActivitiesArray.add("Listen to music: Listen to calming or uplifting music to boost your mood.");
+        randomActivitiesArray.add("Meditate: Spend a few minutes meditating or practicing mindfulness to center your thoughts.");
+        randomActivitiesArray.add("Daydream: Let your mind wander and daydream for a moment to allow your brain to rest.");
+        randomActivitiesArray.add("Light exercise: Do a quick set of jumping jacks or push-ups to get your blood flowing.");
+        randomActivitiesArray.add("Read: Read a few pages of a book or an article on a topic of interest.");
+        randomActivitiesArray.add("Puzzle or brain teaser: Engage in a quick brain teaser or puzzle game to stimulate your mind.");
+        randomActivitiesArray.add("Doodle or sketch: Let your creative side flow and doodle or sketch something for fun.");
+        randomActivitiesArray.add("Organize your workspace: Use the break to tidy up your desk and create a more organized environment.");
+        randomActivitiesArray.add("Socialize: If you're working with others, use the break to chat briefly with colleagues or friends.");
+        randomActivitiesArray.add("Play a short game: Play a quick video game or a mobile game to relax and unwind.");
+        randomActivitiesArray.add("Look outside: Spend a moment looking out of the window and enjoying the view.");
+        randomActivitiesArray.add("Practice a hobby: If you have a hobby like playing a musical instrument, writing, or drawing, use the break to indulge in it.");
+        randomActivitiesArray.add("Mindful breathing: Focus solely on your breathing for a minute or two to calm your mind.");
+        randomActivitiesArray.add("Do a mini workout: Perform a short exercise routine to get your body moving.");
+        randomActivitiesArray.add("Laugh: Watch a funny video or read a joke to lighten your mood and reduce stress.");
+        randomActivityGenerator = new RandomActivityGenerator(randomActivitiesArray);
+        randomActivityGenerator.setBtnRandomActivityGenerator(findViewById(R.id.btnRandomActivityGenerator));
 
 
     }
@@ -168,10 +172,10 @@ public class MainActivity extends Activity implements  View.OnClickListener{
 
 
     private void updateCountDownText(){
-
-        int mins = (int) (timeLeft / 3600000)/60;
-        int secs = (int) (timeLeft / 1000)%60;
         int hrs = (int)(timeLeft/3600000);
+        int mins = (int) (timeLeft/1000/60)%60;
+        int secs = (int) (timeLeft / 1000)%60;
+
 
         String timeLeftFormatted = String.format(Locale.getDefault(),"%02d:%02d:%02d", hrs, mins, secs);
         txtMainCountDown.setText(timeLeftFormatted);
@@ -262,6 +266,68 @@ public class MainActivity extends Activity implements  View.OnClickListener{
 
 
 
+class RandomActivityGenerator extends MainActivity implements View.OnClickListener{
+//FIELDS
+        private Button btnRandomActivityGenerator;
+        private String randomActivitiesArray[];
+        private ArrayList<String>randomActivitiesList;
+        private String currActivity="", prevActivity = "";
+//CONSTRUCTOR
+        public RandomActivityGenerator(ArrayList<String>randomActivitiesList){
+            this.randomActivitiesList = randomActivitiesList;
+        }
+
+//GETTER SETTERS
+
+    public Button getBtnRandomActivityGenerator() {
+        return btnRandomActivityGenerator;
+    }
+
+    public void setBtnRandomActivityGenerator(Button btnRandomActivityGenerator) {
+        this.btnRandomActivityGenerator = btnRandomActivityGenerator;
+    }
+    public String[] getRandomActivitiesArray() {
+        return randomActivitiesArray;
+    }
+
+    public void setRandomActivitiesArray(String[] randomActivitiesArray) {
+        this.randomActivitiesArray = randomActivitiesArray;
+    }
+    public ArrayList<String> getRandomActivitiesList() {
+        return randomActivitiesList;
+    }
+    public void setRandomActivitiesList(ArrayList<String> randomActivitiesList) {
+        this.randomActivitiesList = randomActivitiesList;
+    }
+
+
+
+//METHODS
+    public void generateRandomActivity(){
+            btnRandomActivityGenerator.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    pickRandomActivity();
+                    updateBtnRandomActivityGenereatorText();
+                }
+            });
+
+    }
+
+    private void updateBtnRandomActivityGenereatorText() {
+            if(prevActivity.equals(currActivity)){pickRandomActivity();}
+            btnRandomActivityGenerator.setText(currActivity);
+    }
+
+    private void pickRandomActivity() {
+          prevActivity = currActivity;
+        Collections.shuffle(randomActivitiesList);
+        currActivity = randomActivitiesList.get(0);
+
+    }
+
+
+}
 
 
 
@@ -274,8 +340,7 @@ public class MainActivity extends Activity implements  View.OnClickListener{
 
 
 
-
-class PomodoroTimer extends MainActivity implements View.OnClickListener {
+/*class PomodoroTimer extends MainActivity implements View.OnClickListener {
     static long startTimeInMillis;
     Boolean timerRunning;
     public void setTimerRunning(boolean timerRunning){
@@ -300,7 +365,7 @@ class PomodoroTimer extends MainActivity implements View.OnClickListener {
     CountDownTimer pomoCountDownTimer;
     Boolean timerRunning;
     long pomoTimeLeftMillis = startTimeInMillis;*/
-//------CONSTRUCTOR-----------------------------------------------------------------------------
+/*//------CONSTRUCTOR-----------------------------------------------------------------------------
     public PomodoroTimer(long startTimeInMillis, Button btnStartPause, Button btnReset, TextView txtPomodoro){
         this.startTimeInMillis = startTimeInMillis;
         this.btnReset = btnReset;
@@ -386,7 +451,7 @@ class PomodoroTimer extends MainActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {}
 
-}
+}*/
 
 
 

@@ -30,25 +30,24 @@
             android:text="00:00:00"
             android:textSize="60dp" />
 
+
         <Button
             android:id="@+id/btnEdit"
             android:layout_width="20dp"
-            android:layout_height="60dp"
+            android:layout_height="80dp"
+            android:layout_alignParentTop="true"
             android:layout_marginLeft="70dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="2dp"
             android:layout_toStartOf="@+id/MainCountDown"
             android:text="EDIT" />
-
 
         <TextView
             android:id="@+id/txtPomodoro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-
+            android:layout_centerInParent="true"
             android:text="00:00:00"
             android:textAlignment="center"
             android:textSize="60sp"
@@ -68,8 +67,7 @@
             android:textSize="20dp"
 
             android:visibility="invisible"
-            tools:visibility="visible"
-            />
+            tools:visibility="visible" />
 
 
         <Button
@@ -82,6 +80,33 @@
 
             android:text="START"
             android:textSize="20dp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <Button
+            android:id="@+id/btnRandomActivityGenerator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CLICK FOR RANDOM ACTIVITY"
+            android:textSize="20sp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/btnStartPause"
+            android:layout_marginTop="125dp"
+            android:textAlignment="center"/>
+
+
     </RelativeLayout>
 
 
